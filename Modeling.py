@@ -42,7 +42,7 @@ df.drop(columns=['Description'], inplace=True)
 df['Salary'] = pd.to_numeric(df['Salary'], errors='coerce')
 
 # Save new data
-df.to_csv("last_job_data.csv", index=False)
+df.to_csv("last_jobs_data.csv", index=False)
 
 # Calculate and print correlation matrix
 corr_matrix = df.corr()
@@ -131,12 +131,12 @@ num_classes = len(title_columns)  # The number of distinct classes (titles)
 # Split the data into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y_encoded, test_size=0.2, random_state=42)
 
-# --- Train XGBoost Model ---
+# Train XGBoost Model
 xgb_model = xgb.XGBClassifier(objective='multi:softmax', eval_metric='mlogloss', num_class=num_classes, max_depth=3,
                               eta=0.1, n_estimators=100)
 xgb_model.fit(X_train, y_train)
 
-# --- Train Random Forest Model ---
+# Train Random Forest Model
 rf_model = RandomForestClassifier(random_state=42)
 rf_model.fit(X_train, y_train)
 
@@ -161,7 +161,7 @@ plt.xlabel('Feature Importance')
 plt.title('Random Forest Feature Importance for Predicting Job Titles')
 plt.show()
 
-# --- Feature Importance Per Job Title ---
+# Feature Importance Per Job Title
 # For XGBoost: Plot feature importances for each job title (class)
 for idx, title in enumerate(title_columns):
     # Extract feature importances for the current job title
