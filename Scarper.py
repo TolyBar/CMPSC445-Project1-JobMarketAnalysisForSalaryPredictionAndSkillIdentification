@@ -16,7 +16,7 @@ chrome_options.add_argument("--enable-unsafe-swiftshader")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
 # Selenium with ChromeDriver
-service = Service("C:\\Users\\admin\\OneDrive\\Рабочий стол\\Coding\\JobScrape\\chromedriver-win64\\chromedriver.exe")
+service = Service("C:\\Users\\admin\\OneDrive\\Рабочий стол\\Coding\\JobScrape\\chromedriver-win64\\chromedriver.exe") # Edit to you path
 
 # Function to start the Chrome WebDriver
 def start_driver():
