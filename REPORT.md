@@ -56,25 +56,13 @@ Train and Test Data Partition: Splitting data into training (80%) and testing (2
 
 ![Figure_4](https://github.com/user-attachments/assets/2ab8fbb7-61fa-4321-8df2-6c7c6afb03cc)
 
-![Figure_5](https://github.com/user-attachments/assets/4d9b8948-948c-46ed-980f-a65e0e928ca9)
-
-![Figure_6](https://github.com/user-attachments/assets/c0a1f969-8ac6-417d-b46b-abb84c674fe7)
-
-![Figure_7](https://github.com/user-attachments/assets/33fcce14-ef2b-460a-ad7e-f0d407b8f581)
-
-![Figure_14](https://github.com/user-attachments/assets/00c00fb5-9961-4140-a4c9-2425d12bb282)
-
-![Figure_13](https://github.com/user-attachments/assets/f4af0dd4-541d-46d3-b550-a62f5a12922d)
+![Figure_8](https://github.com/user-attachments/assets/dfe132fb-a621-454b-a458-eb475b9671e5)
 
 ![Figure_12](https://github.com/user-attachments/assets/182e981f-69b8-48e2-a27d-1a2ecf9204a7)
 
-![Figure_11](https://github.com/user-attachments/assets/43e456ab-091f-4957-ad0b-1adefec402e1)
+![Figure_13](https://github.com/user-attachments/assets/f4af0dd4-541d-46d3-b550-a62f5a12922d)
 
-![Figure_10](https://github.com/user-attachments/assets/c9b2fa97-17a0-42bb-9812-eba39a72c966)
-
-![Figure_9](https://github.com/user-attachments/assets/a394c7ea-f147-479b-aafc-a3e76540e15b)
-
-![Figure_8](https://github.com/user-attachments/assets/dfe132fb-a621-454b-a458-eb475b9671e5)
+![Figure_14](https://github.com/user-attachments/assets/00c00fb5-9961-4140-a4c9-2425d12bb282)
 
 #  Discussion and Conclusions
    
