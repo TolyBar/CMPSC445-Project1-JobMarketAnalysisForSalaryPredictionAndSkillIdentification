@@ -41,8 +41,8 @@ df.drop(columns=['Description'], inplace=True)
 # Transform Salary (since it's a continuous variable, but we'll scale it into small chunks)
 df['Salary'] = pd.to_numeric(df['Salary'], errors='coerce')
 
-# Save new data
-df.to_csv("last_jobs_data.csv", index=False)
+# Save engineered data
+df.to_csv("engineered_job_data.csv", index=False)
 
 # Calculate and print correlation matrix
 corr_matrix = df.corr()
@@ -132,7 +132,7 @@ num_classes = len(title_columns)  # The number of distinct classes (titles)
 X_train, X_test, y_train, y_test = train_test_split(X, y_encoded, test_size=0.2, random_state=42)
 
 # Train XGBoost Model
-xgb_model = xgb.XGBClassifier(objective='multi:softmax', eval_metric='mlogloss', num_class=num_classes, max_depth=3,
+xgb_model = xgb.XGBClassifier(importance_type='gain',objective='multi:softmax', eval_metric='mlogloss', num_class=num_classes, max_depth=3,
                               eta=0.1, n_estimators=100)
 xgb_model.fit(X_train, y_train)
 
@@ -167,10 +167,20 @@ for idx, title in enumerate(title_columns):
     # Extract feature importances for the current job title
     xgb_class_importance = xgb_model.feature_importances_
 
+    # Create a DataFrame for better visualization
+    importance_df_xgb = pd.DataFrame({
+        'Skill': ['Management', 'Programming', 'Communication'],
+        'Importance': xgb_class_importance
+    })
+
+    # Sort the DataFrame by importance
+    importance_df_xgb = importance_df_xgb.sort_values(by='Importance', ascending=False)
+
     # Plot the importance for this class
     plt.figure(figsize=(10, 6))
-    plt.barh(['Management', 'Programming', 'Communication'], xgb_class_importance, color='purple')
+    sns.barplot(x='Importance', y='Skill', data=importance_df_xgb, color='purple')
     plt.xlabel('Feature Importance')
+    plt.ylabel('Skill')
     plt.title(f'XGBoost Feature Importance for Predicting: {title}')
     plt.show()
 
@@ -183,10 +193,20 @@ for idx, title in enumerate(title_columns):
     # Extract feature importances for the current job title
     rf_class_importance = rf_model.feature_importances_
 
+    # Create a DataFrame for better visualization
+    importance_df_rf = pd.DataFrame({
+        'Skill': ['Management', 'Programming', 'Communication'],
+        'Importance': rf_class_importance
+    })
+
+    # Sort the DataFrame by importance
+    importance_df_rf = importance_df_rf.sort_values(by='Importance', ascending=False)
+
     # Plot the importance for this class
     plt.figure(figsize=(10, 6))
-    plt.barh(['Management', 'Programming', 'Communication'], rf_class_importance, color='green')
+    sns.barplot(x='Importance', y='Skill', data=importance_df_rf, color='green')
     plt.xlabel('Feature Importance')
+    plt.ylabel('Skill')
     plt.title(f'Random Forest Feature Importance for Predicting: {title}')
     plt.show()
 
@@ -225,20 +245,33 @@ for title_col in title_columns:
     plt.title(f'Distribution of Predicted Salaries for {title_col}')
     plt.show()
 
-# Prepare the DataFrame with actual job roles and predicted salaries
-predictions_df['Actual_Job_Role'] = y_test  # Assign actual job roles to DataFrame
-
-# Convert job roles back to their string names (reverse label encoding if needed)
+# Reverse label encoding for y_test to get the original job role names
 y_test_reversed = le.inverse_transform(y_test)
-predictions_df['Actual_Job_Role'] = y_test_reversed
+# Prepare the DataFrame with actual job roles and predicted salaries
+predictions_df['Actual_Job_Role'] = y_test_reversed  # Assign actual job roles to DataFrame
 
-# Box Plot for Job Roles vs. Predicted Salaries
-plt.figure(figsize=(10, 6))
-sns.boxplot(x='Actual_Job_Role', y='Predicted_Salary', data=predictions_df, hue='Actual_Job_Role', palette="Set2", legend=False)
-plt.title('Salary Distribution Across Different Job Roles')
+# Add Location information to the predictions DataFrame (assuming 'Location' is available in the original data)
+# If 'Location' is one-hot encoded, you need to reverse it back to the original categorical form.
+# Example: If 'Location_West', 'Location_East', etc., are columns, you can reverse it like this:
+location_columns = [col for col in df.columns if col.startswith('Location_')]
+predictions_df['Location'] = df.loc[X_test.index, location_columns].idxmax(axis=1).str.replace('Location_', '')
+
+# Box Plot for Job Roles vs. Predicted Salaries, grouped by Location
+plt.figure(figsize=(12, 8))
+sns.boxplot(
+    x='Actual_Job_Role', 
+    y='Predicted_Salary', 
+    hue='Location',  # Group by Location
+    data=predictions_df, 
+    palette="Set2", 
+    legend=True
+)
+plt.title('Salary Distribution Across Different Job Roles and Locations')
 plt.xlabel('Job Role')
 plt.ylabel('Predicted Salary')
 plt.xticks(rotation=45, ha="right")  # Rotate x-axis labels for better visibility
+plt.legend(title='Location', bbox_to_anchor=(1.05, 1), loc='upper left')  # Move legend outside the plot
+plt.tight_layout()  # Adjust layout to prevent overlapping
 plt.show()
 
 # Feature importance extraction from XGBoost model  
