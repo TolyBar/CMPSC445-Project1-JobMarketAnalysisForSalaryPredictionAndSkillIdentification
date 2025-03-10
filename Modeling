@@ -41,8 +41,8 @@ df.drop(columns=['Description'], inplace=True)
 # Transform Salary (since it's a continuous variable, but we'll scale it into small chunks)
 df['Salary'] = pd.to_numeric(df['Salary'], errors='coerce')
 
-# Save engineered data
-df.to_csv("engineered_job_data.csv", index=False)
+# Save new data
+df.to_csv("last_job_data.csv", index=False)
 
 # Calculate and print correlation matrix
 corr_matrix = df.corr()
