@@ -1,0 +1,7 @@
+Visualization
+Histograms to show the distribution of predicted salaries for different job roles.
+
+Box plots to compare the salary distributions across different job roles and locations.
+A map to visualize the average predicted salaries across different locations. (You can use libraries like Plotly for interactive maps)
+Bar plots to show the importance of different skills for each job role. Use feature importance scores from your model to rank the skills
+Heatmaps to visualize the importance of skills across different job roles.
