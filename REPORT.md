@@ -221,29 +221,60 @@ Identified Important Skills for All Job Roles:
     * Communication
 
               5. Visualization
-Predicted Salaries and Salary Distribution:
-Histograms:
-
-Histograms were plotted to show the distribution of predicted salaries for different job roles (e.g., Job Title_Software Engineer, Job Title_Artificial Intelligence, etc.).
+Model 1:
 
 ![Figure_1](https://github.com/user-attachments/assets/b693e0df-575b-4210-a480-1a267fd62d93)
 
+Model 2:
+
 ![Figure_2](https://github.com/user-attachments/assets/a3710bce-fa28-41ea-a29a-f99c98046219)
+
+Predicted Salaries and Salary Distribution:
+
+* Histograms:
 
 ![Figure_3](https://github.com/user-attachments/assets/a728debb-d665-4f48-a9fc-7b1e171c038a)
 
 ![Figure_4](https://github.com/user-attachments/assets/2ab8fbb7-61fa-4321-8df2-6c7c6afb03cc)
 
+Histograms were plotted to show the distribution of predicted salaries for different job roles (e.g., Job Title_Software Engineer, Job Title_Artificial Intelligence, etc.).
+
+* Box Plots:
+
+![Figure_5](https://github.com/user-attachments/assets/e1c01d29-b4e6-46a8-a2c7-7c3dcac37068)
+
+![Figure_6](https://github.com/user-attachments/assets/6dde1619-ddfc-400e-a76a-ed5b66bdd5f4)
+
+![Figure_7](https://github.com/user-attachments/assets/b2f52db6-7e36-41f1-ad22-14f04b09f7b2)
+
 ![Figure_8](https://github.com/user-attachments/assets/dfe132fb-a621-454b-a458-eb475b9671e5)
+
+![Figure_9](https://github.com/user-attachments/assets/47702a15-e610-42df-a40f-391ea4895743)
+
+![Figure_10](https://github.com/user-attachments/assets/cc24f362-b048-4bf3-9aad-9af3c11d3a8d)
+
+![Figure_11](https://github.com/user-attachments/assets/ef290517-ce99-4ef0-a808-e1e4c472a9be)
 
 ![Figure_12](https://github.com/user-attachments/assets/182e981f-69b8-48e2-a27d-1a2ecf9204a7)
 
+Box plots were created to compare the salary distributions across different job roles and locations.
+
+2. Skill Importance Visualization:
+
+* Bar Plots:
+
 ![Figure_13](https://github.com/user-attachments/assets/f4af0dd4-541d-46d3-b550-a62f5a12922d)
+
+Bar plots were used to show the importance of different skills (e.g., Management, Programming, Communication) for each job role.
+
+* Heatmaps:
 
 ![Figure_14](https://github.com/user-attachments/assets/00c00fb5-9961-4140-a4c9-2425d12bb282)
 
+Heatmaps were created to visualize the importance of skills across different job roles.
+
+
+
 #  Discussion and Conclusions
    
-Project Findings: The analysis provided insights into the most demanded skills for various job roles in the tech industry. Python, SQL, and JavaScript emerged as top skills across multiple roles.
-Challenges Encountered: Handling inconsistencies in job titles and qualifications, integrating data from different sources, and extracting relevant skills from job descriptions. Scraping posed a great challenge in the beginning as I had to not only iterate through a huge amount of listings, but also idenitfy and interact with things like buttons to display more jobs, which were different across each site and listings that were incomplete or varied from each other.
-Recommendations: To improve model performance, I could utilize more advanced techniques to better extract and standardize skills from job descriptions, identify more features, and continuously update the dataset to reflect current market trends.
+
