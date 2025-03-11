@@ -1,45 +1,74 @@
 # CMPSC445-Project1-JobMarketAnalysisForSalaryPredictionAndSkillIdentification
 
 #  Description of the Project
-This project aims to analyze job listings to identify the most important skills required for various job roles in computer science, data science, and AI. It involves data collection through web scraping, data preprocessing, feature engineering, model development, and visualization to provide insights into job market trends and skill requirements.
+In this project, I was tasked with scraping various job search sites to collect data to predict salaries for specific positions based on given parameters. The project was structured into five distinct stages: data collection, data preprocessing, feature engineering, model development, and results visualization.
 
 #  How to Use/Setup
-Note: For first time use must uncomment the webscraper portion.
-Clone the Repository:
 
-    git clone https://github.com/your_username/job-market-analysis.git
-    cd job-market-analysis
-Install Dependencies and Uncomment Webscraper portion if neccessary.
-Run the Preprocessing and Analysis:
+My project requires three files. They must be used in a specific order: Scraping.py , Preprocessing.py and finally Modeling.py.
 
-    pip install numpy pandas scikit-learn xgboost matplotlib seaborn selenium
-    python Scraper.py
+Scraping.py is a program that scrapes the specified links. Before using this program, make sure you have the necessary libraries downloaded.
+
+To install the libraries, type in the terminal:
+
+    pip install pandas selenium time
+
+And also specify your path to chromedriver.exe in the line 19:
+
+    service = Service("\\your_path\\chromedriver.exe")
+
+After that, you can either use the code with the links I specified, or specify your own GlassDoor and SimplyHire links.
+
+The second program in line is Preprocessing.py, which does things like: Data cleaning, Data integration, Data ingestion, Data Description, Meta data specification in the data repository with a sample data and Feature Engineering. It uses the already downloaded pandas library, so you can run the program right after the first one.
+
+The last program Modeling.py combines the last tasks in this project, namely Model Development, Evaluation and Visualization. As for the first one, you need to install the corresponding libraries:
+
+    pip install numpy scikit-learn xgboost matplotlib seaborn
+
 #  Training
             1. Data Collection:
 
-* Tools Used:
+Writing Scraping.py turned out to be the most difficult task of the project, which took me several days of various tests. At first, I tried to scrape one GlassDoor link and as a result of testing I found that my code could only take ~900 jobs (may include duplicates) from any ONE link. Adding other links was not successful for a long time, until I decided to restart the driver for each link, the reason was that the site blocks the driver after refreshing the page. Thus, I managed to take from different GlassDoor urls (divided by states) ~900 jobs. And in the same way from SimplyHire.
+
+    !Important information!
+
+    Due to the fact that the program restarts the driver for each link, the program runtime is quite long.
+
+And now to the specific work of the program:
+
+One consists of functions and the main function. The functions that I wrote:
+* start_driver() that starts Chrome WebDriver
+* load_more_jobs(driver, target_jobs=2000) that loads more jobs
+* parse_location(location_text) that parses the location text and extract the state or "Remote"
+* scrape_job_element_GlassDoor(job_element) that scrapes job element from GlassDoor
+* scrape_job_element_SimplyHire(job_element) that scrapes job element from SimplyHire
+* scrape_jobs_GlassDoor(driver) that scrapes jobs from GlassDoor
+* scrape_jobs_SimlyHire(driver) that scrapes jobs from SimplyHire
+* save_to_csv(data, filename="jobs.csv") that saves data to CSV
+
+    * Tools Used:
 
 The job data was collected using Selenium WebDriver with ChromeDriver for automated web scraping.
 Pandas was used for storing and exporting the extracted data into a CSV file.
 
 * Data Sources:
-
+    
 The script scrapes job postings from Glassdoor and SimplyHired.
 
 * Collected Attributes:
 
-Job Title
+  * Job Title
 
-Company Name
+  * Company Name
 
-Location (State or Remote)
+  * Location (State or Remote)
 
-Salary (if provided)
+  * Salary (if provided)
 
-Required Skills (if available)
+  * Required Skills (if available)
 
-Job Description Snippet
-
+  * Job Description Snippet
+    
 * Number of Data Samples:
 
 The script loads and extracts up to 800 job postings per search query.
@@ -168,11 +197,11 @@ Performance with Test Data:
 
 * Results:
 
-    * Linear Regression - Mean Squared Error: [Value]
+    * Linear Regression - Mean Squared Error: 12452.225292617819
 
-    *Linear Regression - R-squared: [Value]
+    * Linear Regression - R-squared: 0.15779524632744535
 
-        !Salary Prediction: Model-2 (XGBoost)!
+            !Salary Prediction: Model-2 (XGBoost)!
 Machine Learning Model: XGBoost Regressor (XGBRegressor from xgboost).
 
 Input to Model: Scaled features (X_scaled) and encoded target (y_encoded).
@@ -187,9 +216,37 @@ Attributes to the Model:
 
 * Hyperparameters: max_depth=3, eta=0.1, n_estimators=100.
 
-Performance with Training Data: Not explicitly calculated in the script.
-
 Performance with Test Data:
+
+Salary    1.000000
+
+Job Title_Software Engineer    0.228669
+
+Company_Large    0.224192
+
+Location_West    0.191724
+
+Location_US    0.038232
+
+Location_SC    0.023489
+
+Location_NJ    0.007959
+
+Programming    0.000133
+
+Job Title_Artificial Intelligence    -0.006593
+
+Management    -0.037320
+
+Communication    -0.075724
+
+Job Title_Other    -0.113752
+
+Location_East    -0.198398
+
+Company_Small    -0.224192
+
+Job Title_Software Developer    -0.225419
 
 * Mean Squared Error (MSE): Calculated using mean_squared_error.
 
@@ -197,28 +254,57 @@ Performance with Test Data:
 
 * Results:
 
-    * XGBoost - Mean Squared Error: [Value]
+    * XGBoost - Mean Squared Error: 12450.123046875
 
-    * XGBoost - R-squared: [Value]
+    * XGBoost - R-squared: 0.15793746709823608
 
             Skill Importance:
 Description of Feature Importance Techniques:
 
 * XGBoost Feature Importance: The feature_importances_ attribute of the XGBoost model was used to extract the importance of each feature (skill) for predicting job titles.
+  
+    * XGBoost Feature Importances for Job Title_Artificial Intelligence:
+      
+        * Management: 0.23763231933116913 
+        * Programming: 0.38770297169685364
+        * Communication: 0.3746647238731384
+
+    * XGBoost Feature Importances for Job Title_Other:
+        * Management: 0.23763231933116913
+        * Programming: 0.38770297169685364
+        * Communication: 0.3746647238731384
+
+    * XGBoost Feature Importances for Job Title_Software Developer:
+        * Management: 0.23763231933116913
+        * Programming: 0.38770297169685364
+        * Communication: 0.3746647238731384
+
+    * XGBoost Feature Importances for Job Title_Software Engineer:
+        * Management: 0.23763231933116913
+        * Programming: 0.38770297169685364
+        * Communication: 0.3746647238731384
 
 * Random Forest Feature Importance: The feature_importances_ attribute of the RandomForestClassifier was used to extract the importance of each feature (skill) for predicting job titles.
 
-Identified Important Skills for All Job Roles:
+    * Random Forest Feature Importances for Job Title_Artificial Intelligence:
+        * Management: 0.22041738020028318 
+        * Programming: 0.4447733828006535
+        * Communication: 0.33480923699906334
 
-* Calculating feature importance for all job titles (e.g., Job Title_Software Engineer, Job Title_Artificial Intelligence, etc.).
+    * Random Forest Feature Importances for Job Title_Other:
+        * Management: 0.22041738020028318 
+        * Programming: 0.4447733828006535
+        * Communication: 0.33480923699906334
 
-* The important skills identified were:
+    * Random Forest Feature Importances for Job Title_Software Developer:
+        * Management: 0.22041738020028318 
+        * Programming: 0.4447733828006535
+        * Communication: 0.33480923699906334
 
-    * Management
-
-    * Programming
-
-    * Communication
+    * Random Forest Feature Importances for Job Title_Software Engineer:
+        * Management: 0.22041738020028318 
+        * Programming: 0.4447733828006535
+        * Communication: 0.33480923699906334
 
               5. Visualization
 Model 1:
@@ -262,8 +348,8 @@ Box plots were created to compare the salary distributions across different job 
 2. Skill Importance Visualization:
 
 * Bar Plots:
-
-![Figure_13](https://github.com/user-attachments/assets/f4af0dd4-541d-46d3-b550-a62f5a12922d)
+  
+![Figure_1111](https://github.com/user-attachments/assets/ec0b23fc-1244-4453-815b-146b1e1d2b11)
 
 Bar plots were used to show the importance of different skills (e.g., Management, Programming, Communication) for each job role.
 
@@ -273,8 +359,16 @@ Bar plots were used to show the importance of different skills (e.g., Management
 
 Heatmaps were created to visualize the importance of skills across different job roles.
 
-
-
 #  Discussion and Conclusions
    
+At first, the project did not seem so difficult to me until I started scraping. For several days, and maybe even weeks, I literally did not get the start of the project due to ignorance, various site structures, blocking, etc. I was glad when I finally dealt with this problem, even despite the long time the program ran. When it was time for preprocessing and model training, it was not easy either. It seems to me that I narrowed all the titles too much, which is why the result was not very correct.
 
+But this project had many advantages, such as:
+
+* Data scraping, the task itself was very interesting, inspecting html code, overcoming problems
+
+* Working with information, classifying columns
+
+* Studying and working with XGBoost
+
+The project is very interesting and I am glad that I was able to achieve at least this result. I think that I could do more and better, understanding this topic more.
