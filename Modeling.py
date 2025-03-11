@@ -42,7 +42,7 @@ df.drop(columns=['Description'], inplace=True)
 df['Salary'] = pd.to_numeric(df['Salary'], errors='coerce')
 
 # Save engineered data
-df.to_csv("engineered_job_data.csv", index=False)
+df.to_csv("last_jobs_data.csv", index=False)
 
 # Calculate and print correlation matrix
 corr_matrix = df.corr()
@@ -250,9 +250,7 @@ y_test_reversed = le.inverse_transform(y_test)
 # Prepare the DataFrame with actual job roles and predicted salaries
 predictions_df['Actual_Job_Role'] = y_test_reversed  # Assign actual job roles to DataFrame
 
-# Add Location information to the predictions DataFrame (assuming 'Location' is available in the original data)
 # If 'Location' is one-hot encoded, you need to reverse it back to the original categorical form.
-# Example: If 'Location_West', 'Location_East', etc., are columns, you can reverse it like this:
 location_columns = [col for col in df.columns if col.startswith('Location_')]
 predictions_df['Location'] = df.loc[X_test.index, location_columns].idxmax(axis=1).str.replace('Location_', '')
 
